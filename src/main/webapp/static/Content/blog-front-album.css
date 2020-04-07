@@ -1,0 +1,57 @@
+﻿/* 相册列表 */
+dl.album {
+	width: 200px;
+	height: 180px;
+	margin: 10px 15px;
+	float: left;
+}
+
+dl.album dt {
+	border: solid 2px silver;
+	padding: 5px;
+}
+
+dl.album dt img {
+	width: 186px;
+	height: 140px;
+}
+
+dl.album dd a {
+	display: block;
+	text-decoration: none;
+	text-align: center;
+	line-height: 2;
+}
+
+/* 单一相册（相片列表）*/
+dl.image {
+	width: 200px;
+	height: 180px;
+	margin: 10px 15px;
+	float: left;
+}
+
+dl.image dt img {
+	width: 186px;
+	height: 140px;
+}
+
+dl.image dd a {
+	display: block;
+	text-decoration: none;
+	text-align: center;
+	line-height: 2;
+}
+
+/* 单一相片 */
+.currentImage {
+	text-align: center;
+}
+
+#currentImage-title, #currentImage-desc {
+	line-height: 2;
+}
+
+.currentImage img {
+	max-width: 680px;
+}

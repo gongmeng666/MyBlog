@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myBlog.dao.CommentDao">
+	<resultMap type="Comment" id="commentWithUser">
+		<id column="commentId" property="id" />
+		<result column="articleId" property="articleId" />
+		<result column="commentTime" property="commentTime" />
+		<result column="content" property="content" />
+		<result column="ip" property="ip" />
+		<result column="state" property="state" />
+		
+		
+		<association property="user" javaType="User">
+			<id column="userId" property="id"/>
+			<result column="username" property="username" />
+			<result column="password" property="password" />
+			<result column="nickname" property="nickname" />
+			<result column="signature" property="signature" />
+			<result column="score" property="score" />
+			<result column="email" property="email" />
+			<result column="visitTimes" property="visitTimes" />
+			<result column="roleId" property="roleId" />
+			<result column="state" property="state" />
+		</association>
+	</resultMap>
+	
+	
+	<select id="fetchByAid" parameterType="int" resultMap="commentWithUser">
+	select c.*,u.* ,c.id commentId from comment c left join user u on c.userId=u.id where c.articleId=#{aid} order by c.commentTime desc
+	</select>
+	
+	<insert id="add" parameterType="Comment">
+	insert into comment(articleId,commentTime,content,ip,state,userId) values(#{articleId},#{commentTime},#{content},#{ip},#{state},#{user.id})
+	</insert>
+	
+</mapper>

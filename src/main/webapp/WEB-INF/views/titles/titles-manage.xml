@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+<!-- 定义模板 -->
+	<definition name="manageTemplate" template="/WEB-INF/views/shared/manage-template.jsp">
+	</definition>
+	
+	<!-- 定义具体页面的组成 -->
+	<definition name="manage-index" extends="manageTemplate">
+		<put-attribute name="main" value="/WEB-INF/views/manage-index.jsp"/>
+	</definition>
+	
+	<definition name="manage-albumlist" extends="manageTemplate">
+		<put-attribute name="main" value="/WEB-INF/views/manage-albumlist.jsp"/>
+	</definition>
+	
+	<definition name="manage-articleList" extends="manageTemplate">
+		<put-attribute name="main" value="/WEB-INF/views/manage-articleList.jsp"/>
+	</definition>
+	
+	<definition name="manage-edit" extends="manageTemplate">
+		<put-attribute name="main" value="/WEB-INF/views/manage-edit.jsp"/>
+	</definition>
+
+
+</tiles-definitions>

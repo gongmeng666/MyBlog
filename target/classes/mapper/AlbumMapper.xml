@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myBlog.dao.AlbumDao">
+	<resultMap type="Album" id="albumWithUser">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="description" property="description" />
+		<result column="cover" property="cover" />
+		
+		
+		
+		<association property="user" javaType="User">
+			<id column="userId" property="id"/>
+			<result column="username" property="username" />
+			<result column="password" property="password" />
+			<result column="nickname" property="nickname" />
+			<result column="signature" property="signature" />
+			<result column="score" property="score" />
+			<result column="email" property="email" />
+			<result column="visitTimes" property="visitTimes" />
+			<result column="roleId" property="roleId" />
+			<result column="state" property="state" />
+		</association>
+	</resultMap>
+	
+	<sql id="select">
+	SELECT *,a.id albumId FROM album a LEFT JOIN USER u ON a.userId=u.`Id`
+	</sql>
+	
+	
+	<select id="fetchByUid"  resultMap="albumWithUser">
+	<include refid="select"/> where a.userId=#{blogerId}
+	</select>
+	
+	<select id="fetchByAid"  resultMap="albumWithUser">
+	<include refid="select"/> where a.id=#{aid}
+	</select>
+	
+
+	
+</mapper>

@@ -1,0 +1,56 @@
+﻿/*博文列表*/
+.article,.article-body,.article-footer{
+    line-height:2;
+}
+.article-title a{
+    line-height:1.5;   
+    text-decoration:none;
+
+}
+.article-body{
+    padding:10px;
+    font-size:14px;
+}
+.article-link{
+    text-align:right;	
+}
+.article-link a{text-decoration:none;}
+
+.linedot{
+    height:1px;
+    background:url(images/linedot.gif);
+    margin:10px 0;
+    clear:both;
+}
+
+/* 回复列表 */
+.comments-title{
+   	margin-top:30px;
+    background-image:url(/myblog/content/css/images/commentTitleBg.png);
+    height:24px;
+}
+.comments-title h3{
+    line-height:24px;	
+    margin-left:20px;
+}
+dl.comment{
+    margin-top:10px;
+}
+.comment dd{
+    line-height:2;
+}
+.comment-authorName,.comment-authorImage{
+    float:left;
+    width:80px;
+    text-align:center;
+}
+.comment-authorName{
+	font-size:14px;
+	font-weight:bold;
+}
+.comment-authorImage img{
+    width:60px;	
+}
+.comment-time,content{
+    float:right;
+}

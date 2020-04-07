@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myBlog.dao.ArticleDao">
+	<resultMap type="Article" id="articleWithUser">
+		<id column="articleId" property="id" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="createTime" property="createTime" />
+		<result column="updateTime" property="updateTime" />
+		<result column="categoryId" property="categoryId" />
+		<result column="clicks" property="clicks" />
+		<result column="commentTimes" property="commentTimes" />
+		<result column="state" property="state" />
+		
+		<association property="user" javaType="User">
+			<id column="userId" property="id"/>
+			<result column="username" property="username" />
+			<result column="password" property="password" />
+			<result column="nickname" property="nickname" />
+			<result column="signature" property="signature" />
+			<result column="score" property="score" />
+			<result column="email" property="email" />
+			<result column="visitTimes" property="visitTimes" />
+			<result column="roleId" property="roleId" />
+			<result column="state" property="state" />
+		</association>
+	</resultMap>
+	
+	<sql id="select">
+	SELECT a.id AS articleId,a.*,u.* FROM Article a LEFT JOIN USER u ON a.userId=u.id
+	</sql>
+	
+	<select id="getArtclesOrderByTime" parameterType="int" resultMap="articleWithUser">
+	<include refid="select"/> ORDER BY a.updateTime DESC LIMIT 0,#{topN}
+	</select>
+	
+	<select id="getArtclesOrderClicks" parameterType="hashmap" resultMap="articleWithUser">
+	<include refid="select"/> 
+	<if test="userId>0">
+	where a.userId=#{userId}
+	</if>
+	order by a.clicks desc limit 0,#{topN}
+	</select>
+	
+	
+	<select id="fetchArticlesRows" parameterType="hashmap" resultType="int">
+	select count(id) from Article a where 1=1
+	<if test="userId>0">
+	and a.userId=#{userId}
+	</if>
+	<if test="cateId">
+	and a.categoryId=#{cateId}
+	</if>
+	<if test="title!=null and !title.isEmpty()">
+		and a.title like concat('%',#{title,'%'})
+	</if>
+	</select>
+	
+	<select id="getArticles" parameterType="hashmap" resultMap="articleWithUser">
+	<include refid="select"/>  where 1=1
+	<if test="userId>0">
+	and a.userId=#{userId}
+	</if>
+	<if test="cateId">
+	and a.categoryId=#{cateId}
+	</if>
+	<if test="title!=null and !title.isEmpty()">
+		and a.title like concat('%',#{title}",'%'})
+	</if>
+	order by a.updateTime desc limit  #{skips},#{pageSize}
+	</select>
+	
+	<select id="fetchById" parameterType="int" resultMap="articleWithUser">
+	<include refid="select"/> where a.id=#{aid}
+	</select>
+	
+	<select id="getArticlesManage" parameterType="hashmap"
+	resultMap="articleWithUser">
+	<include refid="select" />
+	where a.userId=#{userId}
+
+			<if test="cateId>0">
+				and a.categoryId=#{cateId}
+				</if>
+			<if test="title!=null and !title.isEmpty()">
+				and a.title like concat('%',#{title},'%'})
+			</if>
+			order by a.updateTime desc
+	</select>
+	
+	<insert id="add" parameterType="Article" useGeneratedKeys="true" keyProperty="id">
+	insert into Article(Title,Content,CreateTime,UpdateTime,UserId,CategoryId,
+	Clicks,CommentTimes,State)
+	values(#{title},#{content},#{createTime},#{updateTime},#{user.id},
+	#{categoryId},#{clicks},#{commentTimes},#{state})
+	</insert>
+	
+	<update id="edit" parameterType="Article">
+	update Article set
+	Title=#{title},Content=#{content},CreateTime=#{createTime},
+	UpdateTime=#{updateTime},UserId=#{user.id},CategoryId=#{categoryId},
+	Clicks=#{clicks},CommentTimes=#{commentTimes},State=#{state} where Id=#{id}
+	</update>
+	
+	
+	<delete id="delete" parameterType="int">
+	delete from Article where id=#{id}
+	</delete>
+</mapper>

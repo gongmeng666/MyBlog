@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+<!-- 定义模板 -->
+	<definition name="blogTemplate" template="/WEB-INF/views/shared/blog-template.jsp">
+	</definition>
+	
+	<!-- 定义具体页面的组成 -->
+	<definition name="blog-articles" extends="blogTemplate">
+		<put-attribute name="main" value="/WEB-INF/views/blog-articles.jsp"/>
+	</definition>
+	
+		<definition name="blog-detail" extends="blogTemplate">
+		<put-attribute name="main" value="/WEB-INF/views/blog-detail.jsp"/>
+	</definition>
+	
+	<definition name="blog-albumList" extends="blogTemplate">
+		<put-attribute name="main" value="/WEB-INF/views/blog-albumList.jsp"/>
+	</definition>
+	
+	<definition name="blog-album" extends="blogTemplate">
+		<put-attribute name="main" value="/WEB-INF/views/blog-album.jsp"/>
+	</definition>
+	
+	<definition name="blog-photo" extends="blogTemplate">
+		<put-attribute name="main" value="/WEB-INF/views/blog-photo.jsp"/>
+	</definition>
+	
+	
+	
+</tiles-definitions>
